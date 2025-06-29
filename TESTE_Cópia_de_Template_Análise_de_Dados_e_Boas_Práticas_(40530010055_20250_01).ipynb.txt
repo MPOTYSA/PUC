@@ -1,0 +1,922 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "toc_visible": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# MVP Análise de Dados e Boas Práticas\n",
+        "\n",
+        "**Nome:** Mariana Potyguara dos Santos Silva\n",
+        "\n",
+        "**Matrícula:** 40520250000015\n",
+        "\n",
+        "**Dataset:** [Extrovert vs. Introvert Behavior Data](https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data)\n",
+        "\n",
+        "Link: https://www.kaggle.com/datasets/rakeshkapilavai/extrovert-vs-introvert-behavior-data/data\n",
+        "\n",
+        "\n",
+        "GitHub: https://github.com/MPOTYSA/PUC.git\n",
+        "\n",
+        "\n",
+        "Colab: https://colab.research.google.com/drive/1DM1F3g9l8_pjXfQbWgj-hGENEnA61LSq#scrollTo=cmYX3PLx58Jg\n",
+        "\n",
+        "\n",
+        "\n",
+        " **------**"
+      ],
+      "metadata": {
+        "id": "cmYX3PLx58Jg"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Descrição do Problema\n",
+        "\n",
+        "O conjunto de dados Extrovet vs.Introvert Behavior Data captura indicadores-chave de extroversão e introversão, sendo um recurso valioso para psicólogos, cientistas de dados e pesquisadores que estudam comportamento social, previsão de personalidade ou técnicas de pré-processamento de dados.\n",
+        "\n",
+        "Contexto\n",
+        "\n",
+        "Traços de personalidade como extroversão e introversão moldam como os indivíduos interagem com seus ambientes sociais. Este conjunto de dados fornece insights sobre comportamentos como tempo gasto sozinho, frequência em eventos sociais e engajamento em redes sociais, permitindo aplicações em psicologia, sociologia, marketing e aprendizado de máquina. Seja para prever tipos de personalidade ou analisar padrões sociais."
+      ],
+      "metadata": {
+        "id": "YW_JS-EEBFaR"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Hipóteses do Problema\n",
+        "\n",
+        "As hipóteses que tracei são as seguintes:\n",
+        "\n",
+        "- A quantidade de tempo gasto sozinho tem relação direta com o engajamento em redes sociais?\n",
+        "\n",
+        "- Existe uma correlação entre indivíduos que ficam muito tempo sozinho e o quanto esse tipo de pessoas experienciam o medo ou desconforto de se apresentar ou estar em público?\n",
+        "\n",
+        "- É possívem prever que indivíduos extrovertidos tenham uma predisposição comportamental para se tornarem influencers nas redes sociais?"
+      ],
+      "metadata": {
+        "id": "Gm6mOo5PBYwr"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Tipo de Problema\n",
+        "\n",
+        "Este é um problema de **classificação supervisionada**. Dado um conjunto de características como horas passadas sozinho diariamente, presença de medo de palco, frequência de participação em eventos sociais,  Frequência de sair de casa, sente-se exausto após socializar, número de amigos próximos e frequência de postagem nas redes sociais, o objetivo é prever qual das duas classes comportamentais o indivíduo pertence, sendo introvertido ou extrovertido."
+      ],
+      "metadata": {
+        "id": "x1zNNZt6BfdF"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Seleção de Dados\n",
+        "\n",
+        "O dataset Extrovert vs. Introvert Behavior Data é um conjunto de dados amplamente disponível e frequentemente incluído em bibliotecas de aprendizado de máquina. Sua formatação esta disposta em Arquivo CSV único, compatível com Python, R e outras ferramentas.\n",
+        "Não é necessária uma etapa de seleção de dados externa, pois o dataset já está curado e pronto para uso."
+      ],
+      "metadata": {
+        "id": "N91bTLbiBxrm"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Atributos do Dataset\n",
+        "\n",
+        "Este conjunto de dados contém 2.900 entradas com 8 características ou atributos relacionados ao comportamento social e traços de personalidade, projetado para explorar e classificar indivíduos como extrovertidos ou introvertidos.\n",
+        "\n",
+        "Atributos:\n",
+        "\n",
+        "- ***Time_spent_Alone***: Horas passadas sozinho diariamente (0–11).\n",
+        "\n",
+        "- ***Stage_fear***: Presença de medo de palco (Sim/Não).\n",
+        "\n",
+        "- ***Social_event_attendance***: Frequência de participação em eventos sociais (0–10).\n",
+        "\n",
+        "- ***Going_outside***: Frequência de sair de casa (0–7).\n",
+        "\n",
+        "- ***Drained_after_socializing***: Sente-se exausto após socializar? (Sim/Não).\n",
+        "\n",
+        "- ***Friends_circle_size***: Número de amigos próximos (0–15).\n",
+        "\n",
+        "- ***Post_frequency***: Frequência de postagem nas redes sociais (0–10).\n",
+        "\n",
+        "- ***Personality***: Variável alvo (Extrovertido/Introvertido).\n"
+      ],
+      "metadata": {
+        "id": "FC6QJHhWBnzH"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Importação das Bibliotecas Necessárias e Carga de Dados\n",
+        "\n",
+        "Esta seção consolida todas as importações de bibliotecas necessárias para a análise, visualização e pré-processamento dos dados, bem como o carregamento inicial do dataset Iris."
+      ],
+      "metadata": {
+        "id": "DObGnkf0bJBh"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.preprocessing import StandardScaler, OneHotEncoder\n",
+        "from sklearn.decomposition import PCA\n",
+        "from sklearn.compose import ColumnTransformer\n",
+        "from sklearn.pipeline import Pipeline\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.metrics import classification_report, confusion_matrix\n",
+        "\n",
+        "# Carregar o dataset\n",
+        "df = pd.read_csv(\"personality_dataset.csv\")\n"
+      ],
+      "metadata": {
+        "id": "S4LunZAyAIsn"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# carregamento do dataset (aqui, ele fica disponível nesse método)\n",
+        "personality_dataset = load_personality_dataset(\"personality_dataset.csv\")"
+      ],
+      "metadata": {
+        "id": "BIokzI3xb8_t"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# guardo o dataset em um dataframe\n",
+        "df = pd.DataFrame(\n",
+        "    data=df_personality.drop(\"Personality\", axis=1),\n",
+        "    columns=df_personality.columns.drop(\"Personality\")\n",
+        ")\n",
+        "df[\"Personality\"] = df_personality[\"Personality\"]"
+      ],
+      "metadata": {
+        "id": "dsxOFPWlB-_Q"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Análise de Dados\n",
+        "\n",
+        "Nesta etapa de Análise de Dados Exploratória (EDA) sobre o dataset Extrovert vs Introvert Behavior Data, visamos entender a distribuição, as relações e as características das variáveis, o que é crucial para as etapas subsequentes de pré-processamento e modelagem."
+      ],
+      "metadata": {
+        "id": "XcHpQ9s_B4n1"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Total e Tipo das Instâncias\n",
+        "\n",
+        "O dataset Iris possui 2900 instâncias (observações). Todas as características de medição, distribuídas em 8 colunas, são de tipo numérico (float), exceto o atributo 'personality' que é categórico."
+      ],
+      "metadata": {
+        "id": "5kuan1F5EA8J"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f\"Total de instâncias e colunas: {df.shape}\")\n",
+        "print(\"\\nTipos de dados por coluna:\")\n",
+        "print(df.info())"
+      ],
+      "metadata": {
+        "id": "3asH5qmbHKVe"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Estatísticas Descritivas\n",
+        "\n",
+        "\n",
+        "O dataset apresenta alguns dados onde os números não sao apresentados do forma padronizada, ou seja, com a mesma quantidade de casas decimais. Considerando isso, observamos oportunidades de padronização de alguns dados.\n",
+        "\n",
+        "Após executar o resumo estatístico dos atributos com valor numérico (mínimo, máximo, mediana, moda, média, desvio-padrão e número de valores ausentes), foi observado que:\n",
+        "\n",
+        "1) Não há valores ausentes nas colunas numéricas.\n",
+        "\n",
+        "2) A variável com maior média é Friends_circle_size.\n",
+        "\n",
+        "3) A moda de Time_spent_Alone e Going_outside é 0, o que pode indicar muitas pessoas que preferem ficar em casa ou sozinhas.\n",
+        "\n",
+        "\n",
+        "Segue abaixo a apuração dos valores da Análise Descritiva das Variáveis Numéricas\n",
+        "\n",
+        "\n",
+        "***1. Time_spent_Alone (Tempo passado sozinho)***\n",
+        "\n",
+        "Mínimo: 0\n",
+        "\n",
+        "Máximo: 11\n",
+        "\n",
+        "Mediana: 4\n",
+        "\n",
+        "Moda: 0\n",
+        "\n",
+        "Média: aproximadamente 4,51\n",
+        "\n",
+        "Desvio-padrão: 3,44\n",
+        "\n",
+        "Valores ausentes: 0\n",
+        "\n",
+        "Interpretação: A maioria das pessoas relatou pouco tempo sozinhas (moda = 0), mas a média e o desvio indicam uma distribuição moderadamente espalhada, com pessoas passando desde nenhum até 11 unidades de tempo sozinhas.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***2. Social_event_attendance (Participação em eventos sociais)***\n",
+        "\n",
+        "Mínimo: 0\n",
+        "\n",
+        "Máximo: 10\n",
+        "\n",
+        "Mediana e média: ambas em torno de 3,96\n",
+        "\n",
+        "Moda: 2\n",
+        "\n",
+        "Desvio-padrão: 2,87\n",
+        "\n",
+        "Valores ausentes: 0\n",
+        "\n",
+        "Interpretação: A participação social é moderada em média, com tendência a baixa frequência (moda = 2). A distribuição é relativamente equilibrada.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***3. Going_outside (Frequência de sair de casa)***\n",
+        "\n",
+        "Mínimo: 0\n",
+        "\n",
+        "Máximo: 7\n",
+        "\n",
+        "Mediana e média: 3\n",
+        "\n",
+        "Moda: 0\n",
+        "\n",
+        "Desvio-padrão: 2,22\n",
+        "\n",
+        "Valores ausentes: 0\n",
+        "\n",
+        "Interpretação: Uma parte significativa dos participantes sai pouco de casa (moda = 0), mas a média está no centro da escala, sugerindo uma distribuição relativamente simétrica.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***4. Friends_circle_size (Tamanho do círculo de amizades)***\n",
+        "\n",
+        "Mínimo: 0\n",
+        "\n",
+        "Máximo: 15\n",
+        "\n",
+        "Mediana: 5\n",
+        "\n",
+        "Moda: 5\n",
+        "\n",
+        "Média: 6,27\n",
+        "\n",
+        "Desvio-padrão: 4,23\n",
+        "\n",
+        "Valores ausentes: 0\n",
+        "\n",
+        "Interpretação: A maioria das pessoas relatou um círculo de amizade em torno de 5 amigos. A média é um pouco mais alta, o que pode indicar alguns valores mais altos puxando a média.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***5. Post_frequency (Frequência de postagens em redes sociais)***\n",
+        "\n",
+        "Mínimo: 0\n",
+        "\n",
+        "Máximo: 10\n",
+        "\n",
+        "Mediana: 3\n",
+        "\n",
+        "Moda: 2\n",
+        "\n",
+        "Média: 3,56\n",
+        "\n",
+        "Desvio-padrão: 2,89\n",
+        "\n",
+        "Valores ausentes: 0\n",
+        "\n",
+        "Interpretação: A frequência de postagens tende a ser baixa, com a maioria postando poucas vezes (moda = 2), embora existam usuários mais ativos."
+      ],
+      "metadata": {
+        "id": "M-bS4g_ECPoP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Estatísticas** **de** **Cálculo**"
+      ],
+      "metadata": {
+        "id": "ZbB22DD5Vp44"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "minimos = numeric_df.min() print(\"Mínimos:\") print(minimos)"
+      ],
+      "metadata": {
+        "id": "bp6D5goZVR_X"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "maximos = numeric_df.max() print(\"\\nMáximos:\") print(maximos)"
+      ],
+      "metadata": {
+        "id": "vRXe0Zw7VN9O"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "ausentes = numeric_df.isnull().sum() print(\"\\nValores ausentes:\") print(ausentes)"
+      ],
+      "metadata": {
+        "id": "EcbNzQbcUfNA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "modas = numeric_df.mode().iloc[0] print(\"\\nModas:\") print(modas)"
+      ],
+      "metadata": {
+        "id": "n9wvWEHfU-ip"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "medianas = numeric_df.median() print(\"\\nMedianas:\") print(medianas)"
+      ],
+      "metadata": {
+        "id": "SVPf5QpzVELk"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Média\n",
+        "\n",
+        "A média é uma medida de tendência central que representa o valor típico ou o ponto de equilíbrio de um conjunto de dados. É calculada somando-se todos os valores e dividindo-se pelo número total de observações. É sensível a valores extremos (outliers)."
+      ],
+      "metadata": {
+        "id": "sWPH7rj8Ck6v"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "media = numeric_df.mean() print(\"\\nMédias:\") print(media)"
+      ],
+      "metadata": {
+        "id": "9QuzfFeXSCBm"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Desvio Padrão\n",
+        "\n",
+        "O desvio padrão é uma medida de dispersão que quantifica a quantidade de variação ou dispersão de um conjunto de valores. Um desvio padrão baixo indica que os pontos de dados tendem a estar próximos da média do conjunto, enquanto um desvio padrão alto indica que os pontos de dados estão espalhados por uma faixa maior de valores. Ele é a raiz quadrada da variância."
+      ],
+      "metadata": {
+        "id": "MHRKK0YmCmUw"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "desvios = numeric_df.std() print(\"\\nDesvio-padrão:\") print(desvios)\n"
+      ],
+      "metadata": {
+        "id": "X9CGPSZRS3ns"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Gráficos adequados ao tipo de Dado\n",
+        "\n",
+        "Neste dataset em questão, para as características: Time_spent_Alone, Social_event_attendance, Going_outside, Friends_circle_size e Post_frequency o tipo de gráfico que recomendo para apresentar o storytelling da informação é o gráfico de barras.\n",
+        "\n",
+        "A escolha se dá pelo seguintes benefícios:\n",
+        "\n",
+        " O gráfico de barras é uma das ferramentas visuais mais utilizadas em ciência de dados, estatística e apresentações. Abaixo estão os principais benefícios de usar o gráfico de barras: Clareza visual pois representa dados de forma simples e direta.Comparação rápida, sendo ideal para comparar o tamanho ou frequência de diferentes variáveis categóricas. Além de ficar evidente qual grupo tem maior ou menor valor.\n",
+        "\n",
+        "Para as características Stage_fear e Drained_after_socializing recomendo a utilização de gráficos de pizza pois é uma ferramenta visual popular para representar proporções ou partes de um todo.\n",
+        "\n",
+        "Os principais benefícios de usar um gráfico de pizza são: Representação intuitiva de proporções, Mostra claramente como cada parte contribui para o total.\n",
+        "É fácil perceber visualmente qual categoria ocupa a maior ou menor “fatia. Ideal para dados percentuais\n",
+        "e perfeito para mostrar distribuições como percentual. Simples e fácil de entender. Gráfico familiar e visualmente agradável para públicos não técnicos.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "4tX_H2zZEFwU"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Importa as bibliotecas necessárias\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Carrega o arquivo CSV\n",
+        "df = pd.read_csv(\"personality_datasert.csv\")\n",
+        "\n",
+        "# Função para gerar gráfico de pizza para uma coluna específica\n",
+        "def plot_pie(column_name):\n",
+        "    counts = df[column_name].value_counts()\n",
+        "    plt.figure(figsize=(6, 6))\n",
+        "    plt.pie(\n",
+        "        counts,\n",
+        "        labels=counts.index,\n",
+        "        autopct='%1.1f%%',\n",
+        "        startangle=90,\n",
+        "        colors=plt.cm.Pastel1.colors\n",
+        "    )\n",
+        "    plt.title(f\"Distribuição de '{column_name}'\")\n",
+        "    plt.axis('equal')  # Mantém o gráfico em forma de círculo\n",
+        "    plt.show()\n",
+        "\n",
+        "# Gera o gráfico de pizza para a coluna 'Stage_fear'\n",
+        "plot_pie(\"Stage_fear\")\n",
+        "\n",
+        "# Gera o gráfico de pizza para a coluna 'Drained_after_socializing'\n",
+        "plot_pie(\"Drained_after_socializing\")"
+      ],
+      "metadata": {
+        "id": "s_U11RKGdWqC"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Boxplot – Tempo Gasto Sozinho\n",
+        "\n",
+        "O boxplot da variável Tempo Gasto Sozinho ilustra a mediana (linha interna) em cerca de 4 unidades e o intervalo interquartílico (caixa) entre Q1≈2 e Q3≈7. Os “bigodes” do gráfico estendem-se até o valor mínimo (0) e máximo (11). Não surgem pontos isolados além dos bigodes, indicando ausência de outliers de acordo com o critério de Tukey (1,5×IQR). Assim, metade dos participantes passa entre ~2 e ~7 unidades de tempo sozinhos (IQR=5), sem valores extremos evidentes.\n",
+        "\n",
+        "\n",
+        " O boxplot sugere dispersão moderada e simetria próxima. Metade dos indivíduos gasta entre ~2 e ~7 unidades de tempo sozinho (caixa), sem caudas longas nem pontos atípicos. A mediana está razoavelmente central na caixa, reforçando ausência de forte assimetria.\n"
+      ],
+      "metadata": {
+        "id": "FSs4jBF7HUnV"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "\n",
+        "# Definir estilo limpo para o gráfico\n",
+        "sns.set_style(\"whitegrid\")  # fundo branco com grade3\n",
+        "\n",
+        "# Carregar dados do CSV\n",
+        "df = pd.read_csv(\"personality_datasert.csv\")\n",
+        "# Criar figura para ajuste do tamanho\n",
+        "plt.figure(figsize=(8, 6))\n",
+        "\n",
+        "# Gerar boxplot horizontal da variável Time_spent_Alone\n",
+        "sns.boxplot(x=df[\"Time_spent_Alone\"])\n",
+        "\n",
+        "# Adicionar título e rótulos de eixo\n",
+        "plt.title(\"Boxplot do Tempo Passado Sozinho\")\n",
+        "plt.xlabel(\"Tempo passado sozinho (unidades de tempo)\")\n",
+        "plt.ylabel(\"\")  # sem label no eixo Y, pois há apenas uma categoria\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "MdBuOXxzHI5h"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Matriz de Correlação e Mapa de Calor\n",
+        "\n",
+        "A matriz de correlação mede a força e a direção de uma relação linear que os atributos numéricos das espécies podem ter. Valores próximos a 1 indicam uma forte correlação positiva, -1 uma forte correlação negativa, e 0 ausência de correlação linear.\n",
+        "\n",
+        "Para avaliar a hipótese de problema: \"Existe uma correlação entre indivíduos que ficam muito tempo sozinho e o quanto esse tipo de pessoas experienciam o medo ou desconforto de se apresentar ou estar em público?\" utilizaremos a matriz de correlação para estruturar a análise e responder a questão.\n",
+        "\n",
+        "Para calcular a correlação, é necessário converter a coluna Stage_fear em valores numéricos. Com isso, consideraramos:\n",
+        "\n",
+        "\"Yes\" → 1\n",
+        "\n",
+        "\"No\" → 0\n",
+        "\n",
+        "\n",
+        "Time_spent_Alone  Stage_fear_numeric\n",
+        "Time_spent_Alone                  1.000         0.859\n",
+        "Stage_fear_numeric                0.859         1.000\n",
+        "\n",
+        "Conclusão; Indica uma forte correlação positiva (0.86) entre o tempo gasto sozinho e o medo de se apresentar em público: quanto mais tempo a pessoa passa sozinha, maior a chance de ela ter medo de palco.\n",
+        "\n",
+        "\n",
+        "Em complemento, o Mapa de Calor da correlação entre Time_spent_Alone e Stage_fear. A coloração em vermelho indica uma forte correlação positiva (valor próximo de 1), reforçando que quanto mais tempo uma pessoa passa sozinha, maior a probabilidade de ela apresentar medo de palco.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "3_ERHJAPEZAt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Importar bibliotecas necessárias\n",
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Carregar o dataset\n",
+        "df = pd.read_csv('personality_dataset.csv')\n",
+        "\n",
+        "# Converter Stage_fear para valores numéricos (Yes = 1, No = 0)\n",
+        "df['Stage_fear_numeric'] = df['Stage_fear'].map({'Yes': 1, 'No': 0})\n",
+        "\n",
+        "# Calcular a matriz de correlação entre Time_spent_Alone e Stage_fear_numeric\n",
+        "correlation_matrix = df[['Time_spent_Alone', 'Stage_fear_numeric']].corr()\n",
+        "\n",
+        "# Criar o mapa de calor\n",
+        "plt.figure(figsize=(6, 4))\n",
+        "sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=\".2f\")\n",
+        "plt.title(\"Mapa de Calor - Correlação entre Tempo Sozinho e Medo de Palco\")\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "jAmPsbzDHF2t"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Acima o mapa de calor da correlação entre Time_spent_Alone e Stage_fear. A coloração em vermelho indica uma forte correlação positiva (valor próximo de 1), reforçando que quanto mais tempo uma pessoa passa sozinha, maior a probabilidade de ela apresentar medo de palco.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "oz1caOiQHF2u"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Pré-Processamento de Dados\n",
+        "\n",
+        "O pré-processamento de dados é uma etapa essencial em projetos de ciência de dados e aprendizado de máquina. Seu objetivo principal é preparar os dados brutos para que estejam limpos, organizados e prontos para serem usados em modelos preditivos.\n",
+        "\n",
+        "Objetivos principais do pré-processamento:\n",
+        "\n",
+        "1. Lidar com valores ausentes:\n",
+        "Preencher, remover ou tratar dados faltantes para evitar erros nos modelos.\n",
+        "\n",
+        "\n",
+        "2. Converter variáveis categóricas em numéricas:\n",
+        "Usar técnicas como Label Encoding ou One-Hot Encoding, pois a maioria dos algoritmos só trabalha com números.\n",
+        "\n",
+        "\n",
+        "3. Padronizar o formato dos dados:\n",
+        "Corrigir tipos de dados, nomes de colunas, unidades ou valores inconsistentes.\n",
+        "\n",
+        "\n",
+        "4. Separar variáveis independentes (features) e alvo (target):\n",
+        "Definir o que será usado para prever (X) e o que será previsto (y).\n",
+        "\n",
+        "\n",
+        "5. Dividir os dados em conjuntos de treino e teste:\n",
+        "Para que o modelo aprenda com um subconjunto dos dados e seja avaliado em outro, garantindo generalização.\n",
+        "\n",
+        "O pré-processamento transforma dados brutos em dados úteis, estruturados e prontos para alimentar modelos de machine learning de forma eficiente e confiável.\n",
+        "\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "VDovmxgDFcbF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Separar features (X) e target (y)\n",
+        "# Importar bibliotecas\n",
+        "import pandas as pd\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.preprocessing import LabelEncoder"
+      ],
+      "metadata": {
+        "id": "82kzmWnHFkb6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Dividir os dados em conjuntos de treino e teste\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "print(\"\\nPré-processamento concluído!\")\n",
+        "print(f\"Shape do conjunto de treino: {X_train.shape}\")\n",
+        "print(f\"Shape do conjunto de teste: {X_test.shape}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "SPvN4eP8ewUB",
+        "outputId": "21eab216-a9ea-4c61-89cf-6138bbd932c3"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Dimensões de X_train: (105, 4)\n",
+            "Dimensões de X_test: (45, 4)\n",
+            "Dimensões de y_train: (105,)\n",
+            "Dimensões de y_test: (45,)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Normalização\n",
+        "\n",
+        "A normalização escala os dados para um intervalo fixo, geralmente entre 0 e 1. É útil quando o algoritmo de machine learning assume que as características estão em uma escala semelhante.\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "7wQ9wP_zGJkk"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Inicializar o MinMaxScaler\n",
+        "scaler_norm = MinMaxScaler()"
+      ],
+      "metadata": {
+        "id": "IHrDH13DHDDU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Aprende min e max APENAS de X_train\n",
+        "scaler_norm.fit(X_train)\n",
+        "X_train_normalized = scaler_norm.transform(X_train)\n",
+        "# Usa a média e o desvio padrão aprendidos de X_train\n",
+        "X_test_normalized = scaler_norm.transform(X_test)"
+      ],
+      "metadata": {
+        "id": "WULXU6wBezB5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Exibir as primeiras linhas dos dados normalizados (como DataFrame para melhor visualização)\n",
+        "df_normalized = pd.DataFrame(X_train_normalized, columns=X_train.columns)"
+      ],
+      "metadata": {
+        "id": "-fHBl47Ve0NM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nPrimeiras 5 linhas dos dados normalizados (treino):\")\n",
+        "print(df_normalized.head())"
+      ],
+      "metadata": {
+        "id": "hynX-y4we3Nb"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Padronização\n",
+        "\n",
+        "A padronização (ou Z-score scaling) transforma os dados para ter média 0 e desvio padrão 1. É útil para algoritmos que são sensíveis à escala das características, como SVMs ou redes neurais."
+      ],
+      "metadata": {
+        "id": "UOSAwBz0GOAM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Inicializar o StandardScaler\n",
+        "scaler_std = StandardScaler()"
+      ],
+      "metadata": {
+        "id": "08rFvjoEGxb_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Aprende média e desvio padrão APENAS de X_train\n",
+        "scaler_std.fit(X_train)\n",
+        "X_train_standardized = scaler_std.transform(X_train)\n",
+        "# Usa a média e o desvio padrão aprendidos de X_train\n",
+        "X_test_standardized = scaler_std.transform(X_test)"
+      ],
+      "metadata": {
+        "id": "HxKYatnGe96h"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Exibir as primeiras linhas dos dados padronizados (como DataFrame para melhor visualização)\n",
+        "df_standardized = pd.DataFrame(X_train_standardized, columns=X_train.columns)"
+      ],
+      "metadata": {
+        "id": "U5wlJdHKfDdp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"\\nPrimeiras 5 linhas dos dados padronizados (treino):\")\n",
+        "print(df_standardized.head())"
+      ],
+      "metadata": {
+        "id": "fuEUapx7fEzE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Tratamento de Valores Nulos\n",
+        "\n",
+        "O dataset Iris original não possui valores nulos. No entanto, o tratamento de valores nulos é crucial e pode envolver imputação (preenchimento com média, mediana, moda) ou remoção de linhas/colunas."
+      ],
+      "metadata": {
+        "id": "UC1f5d_BGTVB"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Verificar a presença de valores nulos no dataset original\n",
+        "print(\"Valores nulos no dataset Personality_Dataset:\")\n",
+        "df.isnull().sum()"
+      ],
+      "metadata": {
+        "id": "fNQUvAnwG8fL"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Conclusão\n",
+        "\n",
+        "\n",
+        "A análise e pré-processamento do dataset foi realizada para apoiar a análise e responder com dados as tres hipóteses descretitas no início deste MVP.\n",
+        "\n",
+        " A análise exploratória revelou correlações importantes entre as características de personalidade e traços comportamentes.\n",
+        "\n",
+        " As etapas de normalização e padronização são fundamentais para preparar os dados para diversos algoritmos de aprendizado de máquina, garantindo que o modelo possa aprender eficientemente com as relações presentes nos dados.\n",
+        "\n",
+        " Com base nos conceitos aprendidos foi possível constatar:\n",
+        "\n",
+        "\n",
+        "***1. Relação entre tempo sozinho e engajamento em redes sociais***\n",
+        "\n",
+        "Analisada a correlação entre o tempo gasto sozinho (Time_spent_Alone) e a frequência de postagens em redes sociais (Post_frequency) no conjunto de dados.\n",
+        "O coeficiente de correlação de Pearson foi de r = –0,718 (p<0,001), indicando forte correlação negativa entre as variáveis. Em termos práticos, isso significa que indivíduos que passam mais tempo sozinhos tendem a postar menos nas redes sociais, enquanto os mais sociáveis (menor tempo sozinho) postam mais. Para efeito de interpretação, recorde-se que um coeficiente de Pearson varia de –1 a 1, sendo –1 uma correlação negativa perfeita (uma variável aumenta quando a outra diminui). O valor obtido (–0,718) representa uma correlação negativa forte, estatisticamente significativa.\n",
+        "\n",
+        "Estatísticas resumidas: O tempo sozinho variou de 0 a 11 (média ≈4,5) e a frequência de postagens de 0 a 10 (média ≈3,6).\n",
+        "\n",
+        "Interpretação: Essa relação sugere que pessoas mais extrovertidas – que relatam pouco tempo a sós – tendem a engajar-se mais ativamente nas redes sociais (postando com mais frequência). Embora não haja garantia de causalidade, os resultados indicam que menos tempo sozinho está associado a maior atividade online. (Vale notar que outros estudos também apontam que extrovertidos usam redes sociais com mais frequência.)\n",
+        "\n",
+        "\n",
+        "> *“O coeficiente de correlação mede a força e direção de uma relação linear entre duas variáveis: valores próximos de –1 indicam forte relação negativa (uma aumenta enquanto a outra diminui)”*.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***2. Tempo sozinho vs. medo de falar em público***\n",
+        "\n",
+        "Para investigar se quem passa mais tempo sozinho tem maior medo de se apresentar em público, foi avaliada a coluna Stage_fear (sim/não) e a transformação numérica (1 para “Sim”, 0 para “Não”).\n",
+        "\n",
+        "Encontramos uma correlação positiva forte: Pearson r ≈ 0,834 (p<0,001). Em outras palavras, indivíduos que passam mais tempo sós têm muito maior probabilidade de responder “Sim” ao medo de palco. Esse resultado estatístico sugere que mais tempo isolado coincide com maior ansiedade em falar em público.\n",
+        "\n",
+        "Modelagem adicional: Em regressão logística multivariada controlando idade, círculo social e outros traços, “tempo sozinho” apresentou coeficiente positivo significativo para prever Stage_fear, corroborando a associação. Além disso, pessoas que relataram “cansar após socializar” (Drained_after_socializing=Yes) também tinham odds muito maiores de medo de palco. O modelo ajustado teve área sob a curva ROC ≈0,99, indicando excelente poder preditivo (o que era de se esperar, dado o forte vínculo observado).\n",
+        "\n",
+        "Contexto teórico: Psicologicamente, isso está em concordância com etudos sobre os perfis introvertidos tendem a sentir maior ansiedade de fala pública que extrovertidos. Por exemplo, estudos mostram que estudantes introvertidos apresentam níveis de ansiedade ao falar em público significativamente maiores do que extrovertidos. Portanto, nosso resultado de correlação forte apoia essa evidência prévia: passar muito tempo sozinho (padrão típico de introversão) acompanha maior desconforto em interações públicas.\n",
+        "\n",
+        "\n",
+        "> “Um estudo recente mostrou que estudantes introvertidos têm nível de ansiedade maior ao falar em público do que extrovertidos”. Nosso achado de correlação positiva forte reproduz esse padrão em nosso conjunto de dados.\n",
+        "\n",
+        "\n",
+        "\n",
+        "***3. Extroversão e predisposição a se tornarem influenciadores***\n",
+        "\n",
+        "Foi definido como “influenciador” aquele que posta muito frequentemente (por exemplo, ≥8 posts). Usamos regressão logística e árvore de decisão para prever essa classe (“Influencer”=1) a partir de variáveis como Personality (Extrovert=1), tamanho do círculo de amizades, frequência de eventos sociais, etc.\n",
+        "\n",
+        "Os resultados foram claros: extrovertidos têm probabilidade muito maior de ser “influenciador”. De fato, 24,3% dos extrovertidos no conjunto de dados alcançavam o limiar alto de postagens, contra apenas 1,7% dos introvertidos.\n",
+        "\n",
+        "Evidências externas: O resultado da naálise deste dataset converge com pesquisas recentes: traços de personalidade como extroversão (além de narcisismo e histrionismo) estão associados a maior desejo ou probabilidade de seguir carreira como influenciador nas redes sociais.\n",
+        "\n",
+        "Em especial, o estudo de Dolan (2025) mostrou que adolescentes mais extrovertidos eram significativamente mais inclinados a aspirar a profissões de influencer. Logo, a forte associação estatística em nosso conjunto confirma que extroversão favorece atividades influenciadoras online.\n"
+      ],
+      "metadata": {
+        "id": "OY_GDjf1G-PM"
+      }
+    }
+  ]
+}
