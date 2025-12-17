@@ -214,3 +214,40 @@ Na ordem:
 Este projeto é distribuído sob a licença MIT.
 
 ---
+
+
+mvp-ga4-databricks/
+│
+├── README.md
+│
+├── docs/
+│   ├── MVP_Documentacao_Completa_GA4_Databricks.pdf
+│   ├── objetivo_mvp.md
+│   ├── dataset_ga4.md
+│   ├── modelo_estrela.md
+│   ├── catalogo_de_dados.md
+│   ├── autoavaliacao.md
+│
+├── notebooks/
+│   ├── 01_ingestion/
+│   │   └── ingestion_bigquery.ipynb
+│   │
+│   ├── 02_transformations/
+│   │   └── transformations.ipynb
+│   │
+│   ├── 03_analise/
+│   │   ├── qualidade_dados.ipynb
+│   │   └── analise_conversao.ipynb
+│
+├── sql/
+│   ├── create_tables_delta.sql
+│   ├── analise_funil.sql
+│   └── analise_conversao.sql
+│
+├── diagrams/
+│   └── modelo_estrela.png
+│
+├── data_sample/
+│   └── README.md
+│
+└── .gitignore
